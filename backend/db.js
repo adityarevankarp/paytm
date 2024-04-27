@@ -1,8 +1,7 @@
 // backend/db.js
 const mongoose = require("mongoose");
 
-const connectionString =
-  "mongodb+srv://adityarevankar03:aditya@mernapp.4h8royk.mongodb.net/?retryWrites=true&w=majority/paytm";
+const connectionString = "mongodb+srv://adityarevankar03:aditya@mernapp.4h8royk.mongodb.net/paytm?retryWrites=true&w=majority";
 
 async function connectToMongoDB() {
   try {
