@@ -1,27 +1,14 @@
-const express = require("express");
-
+// backend/index.js
+const express = require('express');
+const cors = require("cors");
+const rootRouter = require("./routes/index");
+const port = 3000;
 const app = express();
 
+app.use(cors());
+app.use(express.json());
 
-const { MongoClient } = require('mongodb');
-const connectionString = 'mongodb+srv://adityarevankar03:aditya@mernapp.4h8royk.mongodb.net/?retryWrites=true&w=majority/paytm';
-
-async function connectToMongoDB() {
-    try {
-      // Create a new MongoClient instance
-      const client = new MongoClient(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
-  
-      // Connect to the MongoDB server
-      await client.connect();
-  
-      console.log('Connected to MongoDB');
-  
-      // Access a specific database
-      
-    } catch (error) {
-      console.error('Error connecting to MongoDB:', error);
-    }
-  }
-  
-  // Call the function to connect to MongoDB
-  connectToMongoDB();
+app.use("/api/v1", rootRouter);
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
