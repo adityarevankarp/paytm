@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { useEffect } from 'react';
-// import Shepherd from 'shepherd.js';
-// import '../node_modules/shepherd.js/dist/cjs/css/shepherd.css';
+import Shepherd from 'shepherd.js';
+import '../node_modules/shepherd.js/dist/cjs/css/shepherd.css';
 import { BrowserRouter, Route, Routes, Link ,useLocation } from 'react-router-dom';
 import { Signup } from './pages/Signup';
 import { Signin } from './pages/Signin';
@@ -9,7 +9,68 @@ import { Dashboard } from './pages/Dashboard';
 import { SendMoney } from './pages/SendMoney';
 
 function App() {
+  
+  useEffect(() => {
+    const tour = new Shepherd.Tour({
+      defaultStepOptions: {
+        classes: 'shepherd-theme-arrows',
+      },
+      useModalOverlay: true,
+    });
 
+    tour.addStep({
+      id: 'step1',
+      title: 'Welcome to Paytm',
+      text: 'Your one-stop destination for all payments.',
+      attachTo: {
+        element: '.welcome',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Next',
+          action: tour.next,
+        },
+      ],
+    });
+
+    tour.addStep({
+      id: 'step2',
+      title: 'Sign In',
+      text: 'Click here to sign in to your account.',
+      attachTo: {
+        element: '.signin-btn',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Next',
+          action: tour.next,
+        },
+      ],
+    });
+
+    tour.addStep({
+      id: 'step3',
+      title: 'Sign Up',
+      text: 'Click here to create a new account.',
+      attachTo: {
+        element: '.signup-btn',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Finish',
+          action: tour.complete,
+        },
+      ],
+    });
+
+    tour.start();
+  }, []);
+
+
+  
 
   return (
     <BrowserRouter>
