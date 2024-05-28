@@ -2,12 +2,51 @@ import { useEffect, useState } from "react"
 import { Button } from "./Button"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import Shepherd from 'shepherd.js';
+import '../../node_modules/shepherd.js/dist/cjs/css/shepherd.css';
 
 export const Users = () => {
     // Replace with backend call
     const [users, setUsers] = useState([]);
     const [filter, setFilter] = useState("");
+    
+    useEffect(() => {
+        const tour = new Shepherd.Tour({
+            defaultStepOptions: {
+                classes: 'shepherd-theme-arrows',
+            },
+        });
+
+        tour.addStep({
+            id: 'search',
+            text: 'Use this input to search for users.',
+            attachTo: { element: 'input[type="text"]', on: 'bottom' },
+            buttons: [
+                {
+                    text: 'Next',
+                    action: tour.next,
+                },
+            ],
+        });
+
+        tour.addStep({
+            id: 'users',
+            text: 'Here are the users that match your search criteria.',
+            attachTo: { element: '.users-list', on: 'top' },
+            buttons: [
+                {
+                    text: 'Finish',
+                    action: tour.complete,
+                },
+            ],
+        });
+
+        tour.start();
+
+        return () => {
+            tour.complete();
+        };
+    }, []);
 
     useEffect(() => {
         axios.get("http://localhost:3000/api/v1/user/bulk?filter=" + filter)
