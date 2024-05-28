@@ -9,45 +9,48 @@ export const SendMoney = () => {
     const name = searchParams.get("name");
     const [amount, setAmount] = useState(0);
     useEffect(() => {
-        const tour = new Shepherd.Tour({
-          defaultStepOptions: {
-            classes: 'shepherd-theme-arrows',
-            scrollTo: true,
+      const tour = new Shepherd.Tour({
+        defaultStepOptions: {
+          classes: 'shepherd-theme-arrows shepherd-theme-dark',
+          scrollTo: true,
+          cancelIcon: {
+            enabled: true,
           },
-        });
-    
-        tour.addStep({
-          id: 'amount',
-          text: 'Enter the amount you want to transfer.',
-          attachTo: { element: '#amount', on: 'bottom' },
-          buttons: [
-            {
-              text: 'Next',
-              action: tour.next,
+        },
+      });
+  
+      tour.addStep({
+        id: 'amount',
+        text: 'Enter the amount you want to transfer.',
+        attachTo: { element: '#amount', on: 'bottom' },
+        buttons: [
+          {
+            text: 'Next',
+            action: tour.next,
+          },
+        ],
+      });
+  
+      tour.addStep({
+        id: 'initiate',
+        text: 'Click here to initiate the transfer.',
+        attachTo: { element: '#initiate-button', on: 'bottom' },
+        buttons: [
+          {
+            text: 'Finish',
+            action: () => {
+              tour.complete();
             },
-          ],
-        });
-    
-        tour.addStep({
-          id: 'initiate',
-          text: 'Click here to initiate the transfer.',
-          attachTo: { element: '#initiate-button', on: 'bottom' },
-          buttons: [
-            {
-              text: 'Finish',
-              action: () => {
-                tour.complete();
-              },
-            },
-          ],
-        });
-    
-        tour.start();
-    
-        return () => {
-          tour.complete();
-        };
-      }, []);
+          },
+        ],
+      });
+  
+      tour.start();
+  
+      return () => {
+        tour.complete();
+      };
+    }, []);
     return <div class="flex justify-center h-screen bg-gray-100">
         <div className="h-full flex flex-col justify-center">
             <div
