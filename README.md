@@ -8,6 +8,10 @@ To run this project, you'll need the following:
 
 * Node.js and npm (or yarn) installed on your system. You can download them from the official Node.js website: https://nodejs.org/en
 
+## Project video
+[https://youtu.be/EaOGb4XiHVo]
+
+
 ## Installation
 
 **1. Clone the repository**
